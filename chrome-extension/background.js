@@ -38,12 +38,20 @@ function save(data){
         ,   data : {mode:'user',userid:me.id, name:me.name, link:me.link, gender:me.gender, friends :  localStorage['friends'] }
     });
 }
-function viewNews(newsid){
-    $.ajax(backendApi,{
-            type : 'POST'
-        ,   data : {mode:'news',userid:me.id, newsid:newsid}
-    });
-}
+// function saveDummy(){
+//     var data={
+//         mode:'user',
+//         userid:me.id, 
+//         name:me.name, 
+//         link:me.link, 
+//         gender:me.gender, 
+//         friends :  localStorage['friends'] 
+//     }
+//    $.ajax(backendApi,{
+//             type : 'POST'
+//         ,   data : data 
+//     });
+// }
 
 
 
@@ -79,8 +87,16 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 
         });
     }
-    else if(request.method === 'viewNews'){
-        viewNews(request);
+    else if(request.method === 'saveNewsView'){
+        $.ajax(backendApi,{
+                type : 'POST'
+            ,   data : {mode:'newsview',userid:me.id, newsid:request.newsid}
+            ,   success : function(data){
+
+                sendResponse(data);
+            }
+        });
+
     }
     else if(request.method === 'logout'){
 

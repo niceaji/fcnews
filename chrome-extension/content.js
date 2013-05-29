@@ -7,9 +7,20 @@ var $fbButton = $('.fb-button')
 ,   me = {}
 ,   friends = {}
 
+function debug(){
+    console.debug.apply(console, arguments);
+}
+function sendRequest(method, callback, data){
 
-function sendRequest(method, callback){
-    chrome.extension.sendRequest({method: method}, callback);
+    var sender = {
+        method : method
+    };
+    if(data){
+        sender = $.extend(sender, data);
+    }
+
+    chrome.extension.sendRequest(sender, callback);
+
 }
 function addUser(user){
     ((user.id===user.id) ? $fbButton : $fbFriends).append('<div id="ff-'+user.id+'" class="user" title="'+user.name+'"><img src="http://graph.facebook.com/'+user.id+'/picture?type=square" width="50" height="50"></div>');
@@ -45,13 +56,18 @@ function checkNewsViewPage(){
         $('#newsBody').length===1  || $("#news_content").length===1 ||
         $(".news_contents").length===1 || $("#newsView").length===1 ){
 
-
-
-        console.debug("newsview page!!")
+        debug("newsview page!!");
+        setTimeout(saveNewsView, 1000 * 3);
     }
 
 }
+function saveNewsView(){
+    var newsid = location.href.replace(/.+([0-9]{17}).*/g,"$1");
 
+    sendRequest("saveNewsView", function(response){
+        debug("saveNewsView", response);
+    },{newsid:newsid});   
+}
 
 //로그인 여부 체크 
 sendRequest("loginCheck", function(response){
@@ -62,7 +78,8 @@ sendRequest("loginCheck", function(response){
 
     if(loginStatus){
 
-        console.log("me:",me);
+        // debug("me:",me);
+
         addUser(me);
         $fbButton.removeClass('fb-nologin');
 
