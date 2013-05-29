@@ -57,7 +57,7 @@ function checkNewsViewPage(){
         $(".news_contents").length===1 || $("#newsView").length===1 ){
 
         debug("newsview page!!");
-        setTimeout(saveNewsView, 1000 * 3);
+        setTimeout(saveNewsView, 1000 * 10);
     }
 
 }
