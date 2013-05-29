@@ -1,0 +1,39 @@
+{
+  "name": "페친뉴스",
+  "version": "1.0",
+  "description": "페북친구들이 보는 뉴스는?",
+  "manifest_version": 2,
+  "icons": {
+    "128": "icon128.png"
+  },
+  "background": {
+    "page":"background.html"
+  },
+  "update_url" : "http://niceaji.github.io/fcnews/dist/update.xml",
+  "browser_action": {
+    "default_title": "페친뉴스",
+    "default_icon": "icon128.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.facebook.com/connect/login_success.html*"],
+      "js": ["oauth2/oauth2_inject.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["http://*.media.daum.net/*"],
+      "js": ["jquery-1.8.1.min.js","content.js"],
+      "css": ["content.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "tabs",
+    "http://*.media.daum.net/*",
+    "https://www.facebook.com/connect/*",
+    "https://graph.facebook.com/",
+    "http://niceaji.cafe24.com/*"
+    // "http://hosting.dorrra.com/*"
+  ]
+}
