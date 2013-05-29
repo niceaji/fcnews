@@ -10,11 +10,11 @@
     "page":"background.html"
   },
   "update_url" : "http://niceaji.github.io/fcnews/dist/update.xml",
-  "browser_action": {
-    "default_title": "페친뉴스",
-    "default_icon": "icon128.png",
-    "default_popup": "popup.html"
-  },
+  // "browser_action": {
+  //   "default_title": "페친뉴스",
+  //   "default_icon": "icon128.png",
+  //   "default_popup": "popup.html"
+  // },
   "content_scripts": [
     {
       "matches": ["https://www.facebook.com/connect/login_success.html*"],
@@ -33,7 +33,8 @@
     "http://*.media.daum.net/*",
     "https://www.facebook.com/connect/*",
     "https://graph.facebook.com/",
-    "http://niceaji.cafe24.com/*"
+    "http://niceaji.cafe24.com/*",
+    "http://niceaji.github.io/fcnews/*"
     // "http://hosting.dorrra.com/*"
   ]
 }
